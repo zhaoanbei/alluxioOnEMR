@@ -15,9 +15,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 ## *3.基本设置*
 
-首先，下载Alluxio版本 (https://www.alluxio.io/download) 并解压缩。
-
-1 为帐户设置所需的IAM角色，以便能够使用EMR服务
+1 为AWS帐户设置所需的IAM角色，以便能够使用EMR服务
 
 *$* aws emr create-default-roles
 
