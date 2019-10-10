@@ -1,7 +1,7 @@
 # 5分钟快速上手 - 通过EMR引导脚本部署Alluxio并运行Spark任务
 
 ## *1.概览*
-Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按需运行集群以处理计算工作负载提供了很好的选择，它管理各种Hadoop生态组件的部署，并提允许对这些组件进行自定义开发。Alluxio是一个开源的基于内存的分布式存储系统，现在成为开源社区中成长最快的大数据开源项目之一。Alluxio可以运行在EMR上，在EMRFS之上当前提供功能特性。 除了缓存带来的性能优势之外，Alluxio还使用户能够针对on-premise存储或甚至不同的云提供商存储运行计算工作负载。在本文中，我们将通过AWS CLI快速通过EMR引导脚本部署Alluxio，并运行PySpark进行文档内容筛选。
+Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按需运行集群以处理计算工作负载提供了很好的选择，它管理各种Hadoop生态组件的部署，并允许对这些组件进行自定义开发。Alluxio是一个开源的基于内存的分布式存储系统，现在成为开源社区中成长最快的大数据开源项目之一。Alluxio可以运行在EMR上，在EMRFS之上当前提供功能特性。 除了缓存带来的性能优势之外，Alluxio还使用户能够针对on-premise存储或甚至不同的云提供商存储运行计算工作负载。在本文中，我们将通过AWS CLI快速通过EMR引导脚本部署Alluxio，并运行PySpark进行文档内容筛选。
 
 更多alluxio 介绍：https://docs.alluxio.io/os/user/stable/cn/Overview.html
 
