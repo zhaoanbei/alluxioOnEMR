@@ -56,7 +56,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \\ \
 --service-role=EMR_DefaultRole \\ \
 --bootstrap-actions \\ \
 Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \\ \
---log-uri `'s3://pubshow/emr/bootstrap-logs'` \\ \
+--log-uri `'s3://pubshow/emr/bootstrap-logs'`  \\ \
 --region `us-east-2`
 
 3 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 使用上一个命令中提供的密钥对SSH进入此实例。 如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 如果需要通过SSH连接到实例，需要添加新的安全组规则。
