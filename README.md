@@ -63,7 +63,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \\ \
 
 4 测试Alluxio是否按预期运行
 
-*$* alluxio runTests
+`$ alluxio runTests`
 
 *注意：Alluxio缺省安装在/opt/alluxio/中。 Hive和Presto已配置为连接到Alluxio。 集群还使用AWS Glue作为Presto和Hive的默认Metastore。 这将允许您在Alluxio集群的多次运行之间维护表定义。*
 
