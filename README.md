@@ -27,8 +27,8 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。
 在AWS CLI下运行如下指令：
 
-*$* aws emr create-cluster \
---auto-scaling-role EMR_AutoScaling_DefaultRole \
+*$* aws emr create-cluster \\
+--auto-scaling-role EMR_AutoScaling_DefaultRole \\
 --release-label emr-5.25.0 \
 --instance-groups '[{"InstanceCount":`<NUMBER OF INSTANCE FOR EMR CORE>`,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"}, \
 {"InstanceCount":`<NUMBER OF INSTANCE FOR EMR MASTER>`,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
