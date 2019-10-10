@@ -16,7 +16,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 通过AWS EMR入门指南 (https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-gs.html) 可以找到大部分先决条件。 
 
-*注意：需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。*
+<!-- 注意：需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。 -->
 
 ## *3.基本设置*
 
@@ -69,7 +69,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \\ \
 
 使用上一个命令中提供的密钥对SSH进入此实例。 
 
-*注意：如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 *
+*注意：如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。*
 
 *通过SSH连接到实例需要添加对应的安全组规则。*
 
