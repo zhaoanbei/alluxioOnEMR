@@ -34,7 +34,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 --*ec2-**attributes* KeyName=<KEY NAME>,InstanceProfile=EMR_EC2_DefaultRole \
 --*service-**role*=EMR_DefaultRole \
 --*bootstrap-**actions* \
-Path='s3://pubshow/emr/alluxio-emr.sh',Args=[<S3 BOOTSTRAP PATH>] \
+Path='s3://pubshow/emr/alluxio-emr.sh',Args=[*<S3 BOOTSTRAP PATH>*] \
 --log-uri <S3 LOG PATH> \
 --region us-east-2
 
