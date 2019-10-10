@@ -39,7 +39,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 --service-role=EMR_DefaultRole \\ \
 --bootstrap-actions \\ \
 Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \\ \
---log-uri `<S3 LOG PATH>` \
+--log-uri `<S3 LOG PATH>` \\ \
 --region `us-east-2`
 
 *注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
@@ -141,3 +141,9 @@ Alluxio属性的调整可以在几个不同的位置完成。 根据哪些服务
 
 2 Alluxio客户端
 如上所述，也可以通过引导脚本编辑通用客户端属性。 这主要是针对本地客户端（CLI）。 像Presto / Hive这样的特定服务的属性更改，应该在相应的配置文件中完成，即core-site.xml，hive.catalog。
+
+## *7.参考文档*
+
+[What is Alluxio](https://docs.alluxio.io/os/user/stable/en/Overview.html)
+[Running Alluxio on EMR](https://docs.alluxio.io/os/user/stable/en/compute/AWS-EMR.html)
+[Running Spark on Alluxio](https://docs.alluxio.io/os/user/1.8/en/compute/Spark.html)
