@@ -20,7 +20,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 1 为AWS帐户设置所需的IAM角色，以便能够使用EMR服务
 
-*$* aws emr create-default-roles
+`$ aws emr create-default-roles`
 
 2 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 
 以下命令所使用的文件下载路径为：[alluxio-emr.sh](https://raw.githubusercontent.com/zhaoanbei/alluxioOnEMR/master/files/alluxio-emr.sh)；[alluxio-emr.json](https://github.com/zhaoanbei/alluxioOnEMR/blob/master/files/alluxio-emr.json) 
@@ -145,5 +145,7 @@ Alluxio属性的调整可以在几个不同的位置完成。 根据哪些服务
 ## *7.参考文档*
 
 [What is Alluxio](https://docs.alluxio.io/os/user/stable/en/Overview.html)
+
 [Running Alluxio on EMR](https://docs.alluxio.io/os/user/stable/en/compute/AWS-EMR.html)
+
 [Running Spark on Alluxio](https://docs.alluxio.io/os/user/1.8/en/compute/Spark.html)
