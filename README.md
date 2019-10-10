@@ -16,7 +16,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 通过AWS EMR入门指南 (https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-gs.html) 可以找到大部分先决条件。 
 
-<font color=gray size=5>注意：需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。</font>
+**注意：请设置一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。**
 
 ## *3.基本设置*
 
@@ -29,7 +29,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 以下命令所使用的文件下载路径为：[alluxio-emr.sh](https://raw.githubusercontent.com/zhaoanbei/alluxioOnEMR/master/files/alluxio-emr.sh)；[alluxio-emr.json](https://github.com/zhaoanbei/alluxioOnEMR/blob/master/files/alluxio-emr.json) 
 
 
-在AWS CLI下运行如下指令：
+在AWS CLI下运行如下指令。引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。
 
 *$* aws emr create-cluster \\ \
 --auto-scaling-role EMR_AutoScaling_DefaultRole \\ \
@@ -46,9 +46,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \\ \
 --log-uri `<S3 LOG PATH>` \\ \
 --region `us-east-2`
 
-*注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
-
-*引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。*
+**注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。**
 
 请参阅以下示例命令以供参考。
 
@@ -69,15 +67,13 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \\ \
 
 使用上一个命令中提供的密钥对SSH进入此实例。 
 
-*注意：如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。*
-
-*通过SSH连接到实例需要添加对应的安全组规则。*
+**注意：如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。通过SSH连接到实例需要添加对应的安全组规则。**
 
 4 测试Alluxio是否按预期运行
 
 `$ alluxio runTests`
 
-*注意：Alluxio缺省安装在/opt/alluxio/中。 Hive和Presto已配置为连接到Alluxio。 集群还使用AWS Glue作为Presto和Hive的默认Metastore。 这将允许您在Alluxio集群的多次运行之间维护表定义。*
+**注意：Alluxio缺省安装在/opt/alluxio/中。 Hive和Presto已配置为连接到Alluxio。 集群还使用AWS Glue作为Presto和Hive的默认Metastore。 这将允许您在Alluxio集群的多次运行之间维护表定义。**
 
 
 
