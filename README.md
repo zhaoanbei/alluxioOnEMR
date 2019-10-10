@@ -113,14 +113,17 @@ Alluxio bootstrap还可以为您设置EMR并运行Spark作业。主要步骤如�
 
 在pyspark下输入如下指令。该指令用于计算文档中出现EMR的行数。
 
-*from pyspark.sql import SparkSession
+`from pyspark.sql import SparkSession
+
 spark = SparkSession.builder.getOrCreate()
+
 textFile = spark.read.text("alluxio:///EMR.txt")
-textFile.filter(textFile.value.contains("EMR")).count()*
+
+textFile.filter(textFile.value.contains("EMR")).count()`
 
 3 查看返回结果 。
 
-*2*
+`2`
 
 ## *6.自定义设置*
 
