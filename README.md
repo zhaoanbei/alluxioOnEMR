@@ -25,15 +25,15 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。 
 
 *$* aws emr create-cluster \
---*auto**-**scaling**-**role* EMR_AutoScaling_DefaultRole \
---*release**-**label* emr-5.25.0 \
---*instance-**groups* '[{"InstanceCount":2,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
---*applications* Name=Presto Name=Hive Name=Hue Name=Spark \
---*name* `<CLUSTER NAME>` \
---*configurations* `https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json` \
---*ec2-**attributes* KeyName=`<KEY NAME>`,InstanceProfile=EMR_EC2_DefaultRole \
---*service-**role*=EMR_DefaultRole \
---*bootstrap-**actions* \
+--auto-scaling-role EMR_AutoScaling_DefaultRole \
+--release-label emr-5.25.0 \
+--instance-groups '[{"InstanceCount":2,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
+--applications Name=Presto Name=Hive Name=Hue Name=Spark \
+--name `<CLUSTER NAME>` \
+--configurations `https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json` \
+--ec2-attributes KeyName=`<KEY NAME>`,InstanceProfile=EMR_EC2_DefaultRole \
+--service-role=EMR_DefaultRole \
+--bootstrap-actions \
 Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \
 --log-uri `<S3 LOG PATH>` \
 --region `us-east-2`
