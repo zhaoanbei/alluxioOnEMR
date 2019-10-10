@@ -21,8 +21,10 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 *$* aws emr create-default-roles
 
-2 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 以下命令所使用的S3 URI为：s3://pubshow/emr/alluxio-emr.sh；https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json  。
-引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。 
+2 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 
+以下命令所使用的S3 URI为：s3://pubshow/emr/alluxio-emr.sh；https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json  。
+引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。
+在AWS CLI下运行如下指令：
 
 *$* aws emr create-cluster \
 --auto-scaling-role EMR_AutoScaling_DefaultRole \
@@ -44,7 +46,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \
 
 *$* alluxio runTests
 
-Alluxio缺省安装在/opt/alluxio/中。 Hive和Presto已配置为连接到Alluxio。 集群还使用AWS Glue作为Presto和Hive的默认Metastore。 这将允许您在Alluxio集群的多次运行之间维护表定义。
+*注意：Alluxio缺省安装在/opt/alluxio/中。 Hive和Presto已配置为连接到Alluxio。 集群还使用AWS Glue作为Presto和Hive的默认Metastore。 这将允许您在Alluxio集群的多次运行之间维护表定义。*
 
 请参阅以下示例命令以供参考。
 
@@ -61,7 +63,7 @@ Path='s3://pubshow/emr/alluxio-emr.sh',Args=['s3://pubshow/emr/'] \
 --log-uri 's3://pubshow/emr/bootstrap-logs' \
 --region us-east-2
 
-注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。
+*注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
 
 ## *4.创建表*
 
@@ -69,33 +71,33 @@ Path='s3://pubshow/emr/alluxio-emr.sh',Args=['s3://pubshow/emr/'] \
 1 SSH进入主节点中的'hadoop'用户。
 2 在Alluxio中创建一个目录作为表的外部位置。
 
-*$* /opt/alluxio/bin/alluxio fs mkdir /testTable
+`$ /opt/alluxio/bin/alluxio fs mkdir /testTable`
 
 3 启动Hive CLI
 
-*$* hive
+`$ hive`
 
 4 创建一个新数据库以查看AWS Glue是否按预期工作。 检查控制台以查看是否已创建数据库。
 
-*CREATE* *DATABASE* glue;
+`CREATE DATABASE glue;`
 
 5 使用新创建的数据库并定义表。
 
-USE glue;
-*create* *external* *table* test1 (
+`USE glue;
+create external table test1 (
 userid INT,
 age INT,
 gender CHAR(1),
 occupation STRING,
 zipcode STRING)
-*ROW* FORMAT DELIMITED
-FIELDS TERMINATED *BY* '|'
-*LOCATION* 'alluxio:///testTable';
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+LOCATION 'alluxio:///testTable';`
 
 6 将值插入表中
 
-USE glue;
-*INSERT* *INTO* test1 *VALUES* (1, 24, 'F', 'Developer', '12345');
+`USE glue;
+INSERT INTO test1 VALUES (1, 24, 'F', 'Developer', '12345');`
 
 7 读取test1表的数据
 
@@ -107,7 +109,7 @@ Alluxio bootstrap还可以为您设置EMR并运行Spark作业。主要步骤如�
 
 1 启动pyspark
 
-*$* pyspark
+`$ pyspark`
 
 2 在S3的alluxio根目录（该目录为emr create-cluster中--bootstrap-actions Args中指定的路径）上传文档。文档来源: https://pubshow.s3.us-east-2.amazonaws.com/emr/EMR.txt
 
