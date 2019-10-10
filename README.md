@@ -3,6 +3,9 @@
 ## *1.概览*
 Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按需运行集群以处理计算工作负载提供了很好的选择，它管理各种Hadoop服务的部署，并提供挂钩对这些服务进行自定义开发。Alluxio是一个开源的基于内存的分布式存储系统，现在成为开源社区中成长最快的大数据开源项目之一。Alluxio可以运行在EMR上，在EMRFS之上当前提供功能特性。 除了缓存带来的性能优势之外，Alluxio还使用户能够针对on-premise存储或甚至不同的云提供商存储运行计算工作负载。在本文中，我们将通过AWS CLI快速通过Alluxio引导EMR，并运行PySpark进行文档内容筛选。
 
+更多alluxio 介绍：https://docs.alluxio.io/os/user/stable/cn/Overview.html
+
+
 ## *2. 准备工作*
 
 * AWS账户
@@ -27,7 +30,8 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 *$* aws emr create-cluster \
 --auto-scaling-role EMR_AutoScaling_DefaultRole \
 --release-label emr-5.25.0 \
---instance-groups '[{"InstanceCount":2,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
+--instance-groups '[{"InstanceCount":`<NUMBER OF INSTANCE FOR EMR CORE>`,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"}, \
+{"InstanceCount":`<NUMBER OF INSTANCE FOR EMR MASTER>`,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
 --applications Name=Presto Name=Hive Name=Hue Name=Spark \
 --name `<CLUSTER NAME>` \
 --configurations `https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json` \
@@ -38,20 +42,14 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \
 --log-uri `<S3 LOG PATH>` \
 --region `us-east-2`
 
-3 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 使用上一个命令中提供的密钥对SSH进入此实例。 如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 如果需要通过SSH连接到实例，需要添加新的安全组规则。
-
-4 测试Alluxio是否按预期运行
-
-*$* alluxio runTests
-
-*注意：Alluxio缺省安装在/opt/alluxio/中。 Hive和Presto已配置为连接到Alluxio。 集群还使用AWS Glue作为Presto和Hive的默认Metastore。 这将允许您在Alluxio集群的多次运行之间维护表定义。*
+*注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
 
 请参阅以下示例命令以供参考。
 
 *$* aws emr create-cluster \
 --auto-scaling-role EMR_AutoScaling_DefaultRole \
 --release-label emr-5.25.0 \
---instance-groups '[{"InstanceCount":2,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
+--instance-groups '[{"InstanceCount":`2`,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
 --name `'alluxio-Test'` \
 --configurations `https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json` \
 --ec2-attributes KeyName=`keyAlluxio`,InstanceProfile=EMR_EC2_DefaultRole \
@@ -61,7 +59,15 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \
 --log-uri `'s3://pubshow/emr/bootstrap-logs'` \
 --region `us-east-2`
 
-*注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
+3 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 使用上一个命令中提供的密钥对SSH进入此实例。 如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 如果需要通过SSH连接到实例，需要添加新的安全组规则。
+
+4 测试Alluxio是否按预期运行
+
+*$* alluxio runTests
+
+*注意：Alluxio缺省安装在/opt/alluxio/中。 Hive和Presto已配置为连接到Alluxio。 集群还使用AWS Glue作为Presto和Hive的默认Metastore。 这将允许您在Alluxio集群的多次运行之间维护表定义。*
+
+
 
 ## *4.创建表*
 
