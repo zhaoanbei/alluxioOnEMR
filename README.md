@@ -54,14 +54,14 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \
 --auto-scaling-role EMR_AutoScaling_DefaultRole \
 --release-label emr-5.25.0 \
 --instance-groups '[{"InstanceCount":2,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
---name 'alluxio-Test' \
---configurations https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json \
---ec2-attributes KeyName=keyAlluxio,InstanceProfile=EMR_EC2_DefaultRole \
+--name `'alluxio-Test'` \
+--configurations `https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json` \
+--ec2-attributes KeyName=`keyAlluxio`,InstanceProfile=EMR_EC2_DefaultRole \
 --service-role=EMR_DefaultRole \
 --bootstrap-actions \
-Path='s3://pubshow/emr/alluxio-emr.sh',Args=['s3://pubshow/emr/'] \
---log-uri 's3://pubshow/emr/bootstrap-logs' \
---region us-east-2
+Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \
+--log-uri `'s3://pubshow/emr/bootstrap-logs'` \
+--region `us-east-2`
 
 *注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
 
