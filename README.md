@@ -14,7 +14,9 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 * 一个S3 Bucket
 * AWS CLI：确保已经准备好AWS CLI，有所需要的Access Key和Secret key
 
-通过AWS EMR入门指南 (https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-gs.html) 可以找到大部分先决条件。 需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。
+通过AWS EMR入门指南 (https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-gs.html) 可以找到大部分先决条件。 
+
+*注意：需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。*
 
 ## *3.基本设置*
 
@@ -23,8 +25,10 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 `$ aws emr create-default-roles`
 
 2 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 
+
 以下命令所使用的文件下载路径为：[alluxio-emr.sh](https://raw.githubusercontent.com/zhaoanbei/alluxioOnEMR/master/files/alluxio-emr.sh)；[alluxio-emr.json](https://github.com/zhaoanbei/alluxioOnEMR/blob/master/files/alluxio-emr.json) 
-引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。
+
+
 在AWS CLI下运行如下指令：
 
 *$* aws emr create-cluster \\ \
@@ -43,6 +47,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \\ \
 --region `us-east-2`
 
 *注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
+*     引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。*
 
 请参阅以下示例命令以供参考。
 
@@ -59,7 +64,12 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \\ \
 --log-uri `'s3://pubshow/emr/bootstrap-logs'`  \\ \
 --region `us-east-2`
 
-3 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 使用上一个命令中提供的密钥对SSH进入此实例。 如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 如果需要通过SSH连接到实例，需要添加新的安全组规则。
+3 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 
+
+使用上一个命令中提供的密钥对SSH进入此实例。 
+
+*注意：如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 *
+*     通过SSH连接到实例需要添加对应的安全组规则。*
 
 4 测试Alluxio是否按预期运行
 
@@ -72,7 +82,9 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \\ \
 ## *4.创建表*
 
 将EMR与Alluxio一起使用的最简单步骤是在Alluxio上创建一个表，并使用Presto / Hive进行查询。
+
 1 SSH进入主节点中的'hadoop'用户。
+
 2 在Alluxio中创建一个目录作为表的外部位置。
 
 `$ /opt/alluxio/bin/alluxio fs mkdir /testTable`
