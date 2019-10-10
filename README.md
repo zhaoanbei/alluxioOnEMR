@@ -47,6 +47,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \\ \
 --region `us-east-2`
 
 *注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。*
+
 *引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。*
 
 请参阅以下示例命令以供参考。
@@ -69,6 +70,7 @@ Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`'s3://pubshow/emr/'`] \\ \
 使用上一个命令中提供的密钥对SSH进入此实例。 
 
 *注意：如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 *
+
 *通过SSH连接到实例需要添加对应的安全组规则。*
 
 4 测试Alluxio是否按预期运行
