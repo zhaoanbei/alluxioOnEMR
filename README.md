@@ -1,9 +1,9 @@
-5分钟快速上手通过Alluxio引导EMR并运行Spark
+#5分钟快速上手通过Alluxio引导EMR并运行Spark
 
-*1.概览*
+##*1.概览*
 Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按需运行集群以处理计算工作负载提供了很好的选择，它管理各种Hadoop服务的部署，并提供挂钩对这些服务进行自定义开发。Alluxio是一个开源的基于内存的分布式存储系统，现在成为开源社区中成长最快的大数据开源项目之一。Alluxio可以运行在EMR上，在EMRFS之上当前提供功能特性。 除了缓存带来的性能优势之外，Alluxio还使用户能够针对on-premise存储或甚至不同的云提供商存储运行计算工作负载。在本文中，我们将通过AWS CLI快速通过Alluxio引导EMR，并运行PySpark进行文档内容筛选。
 
-*2. 准备工作*
+##*2. 准备工作*
 
 * AWS账户
 * IAM帐户，具有默认EMR角色
@@ -13,7 +13,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 通过AWS EMR入门指南 (https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-gs.html)可以找到大部分先决条件。 需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。
 
-*3.基本设置*
+##*3.基本设置*
 
 首先，下载Alluxio版本 (https://www.alluxio.io/download)并解压缩。
 
@@ -63,7 +63,7 @@ Path='s3://pubshow/emr/alluxio-emr.sh',Args=['s3://pubshow/emr/'] \
 
 注意：默认的Alluxio Worker内存设置为20GB。 如果实例类型的内存少于20GB，请更改alluxio-emr.sh脚本中的值。
 
-*4.创建表*
+##*4.创建表*
 
 将EMR与Alluxio一起使用的最简单步骤是在Alluxio上创建一个表，并使用Presto / Hive进行查询。
 1）SSH进入主节点中的'hadoop'用户。
@@ -101,7 +101,7 @@ USE glue;
 
 *SELECT* * *FROM* test1;
 
-*5.运行Spark作业*
+##*5.运行Spark作业*
 Alluxio bootstrap还可以为您设置EMR并运行Spark作业。主要步骤如下所示：
 1）启动pyspark
 
@@ -118,9 +118,9 @@ textFile.filter(textFile.value.contains("EMR")).count()
 
 3） 查看返回结果 。
 
-2
+*$* 2
 
-*6.自定义设置*
+##*6.自定义设置*
 Alluxio属性的调整可以在几个不同的位置完成。 根据哪些服务需求调整，EMR提供了修改服务设置和环境变量的不同方法。
 
 1）Alluxio服务
