@@ -146,6 +146,8 @@ Alluxio属性的调整可以在几个不同的位置完成。 根据哪些服务
 
 [What is Alluxio](https://docs.alluxio.io/os/user/stable/en/Overview.html)
 
+[AWS EMR入门指南](https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-gs.html)
+
 [Running Alluxio on EMR](https://docs.alluxio.io/os/user/stable/en/compute/AWS-EMR.html)
 
 [Running Spark on Alluxio](https://docs.alluxio.io/os/user/1.8/en/compute/Spark.html)
