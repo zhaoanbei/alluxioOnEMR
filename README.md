@@ -29,14 +29,14 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 --*release**-**label* emr-5.25.0 \
 --*instance-**groups* '[{"InstanceCount":2,"InstanceGroupType":"CORE","InstanceType":"m5.xlarge","Name":"Core - 2"},{"InstanceCount":1,"EbsConfiguration":{"EbsBlockDeviceConfigs":[{"VolumeSpecification":{"SizeInGB":32,"VolumeType":"gp2"},"VolumesPerInstance":2}]},"InstanceGroupType":"MASTER","InstanceType":"m5.xlarge","Name":"Master - 1"}]' \
 --*applications* Name=Presto Name=Hive Name=Hue Name=Spark \
---*name* <CLUSTER NAME> \
---*configurations* https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json \
---*ec2-**attributes* KeyName=<KEY NAME>,InstanceProfile=EMR_EC2_DefaultRole \
+--*name* `<CLUSTER NAME>` \
+--*configurations* `https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json` \
+--*ec2-**attributes* KeyName=`<KEY NAME>`,InstanceProfile=EMR_EC2_DefaultRole \
 --*service-**role*=EMR_DefaultRole \
 --*bootstrap-**actions* \
-Path='s3://pubshow/emr/alluxio-emr.sh',Args=[`<S3 BOOTSTRAP PATH>`] \
+Path=`'s3://pubshow/emr/alluxio-emr.sh'`,Args=[`<S3 BOOTSTRAP PATH>`] \
 --log-uri `<S3 LOG PATH>` \
---region us-east-2
+--region `us-east-2`
 
 3 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 使用上一个命令中提供的密钥对SSH进入此实例。 如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 如果需要通过SSH连接到实例，需要添加新的安全组规则。
 
