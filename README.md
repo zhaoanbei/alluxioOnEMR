@@ -83,8 +83,9 @@ Path='s3://pubshow/emr/alluxio-emr.sh',Args=['s3://pubshow/emr/'] \
 
 5 使用新创建的数据库并定义表。
 
-`USE glue;
-create external table test1 (
+`USE glue;`
+
+`create external table test1 (
 userid INT,
 age INT,
 gender CHAR(1),
