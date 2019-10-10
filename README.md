@@ -17,11 +17,11 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 首先，下载Alluxio版本 (https://www.alluxio.io/download) 并解压缩。
 
-1) 为帐户设置所需的IAM角色，以便能够使用EMR服务
+1 为帐户设置所需的IAM角色，以便能够使用EMR服务
 
 *$* aws emr create-default-roles
 
-2) 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 以下命令所使用的S3 URI为：s3://pubshow/emr/alluxio-emr.sh；https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json  。
+2 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 以下命令所使用的S3 URI为：s3://pubshow/emr/alluxio-emr.sh；https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json  。
 引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。 
 
 *$* aws emr create-cluster \
@@ -38,9 +38,9 @@ Path='s3://pubshow/emr/alluxio-emr.sh',Args=[<S3 BOOTSTRAP PATH>] \
 --log-uri <S3 LOG PATH> \
 --region us-east-2
 
-3) 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 使用上一个命令中提供的密钥对SSH进入此实例。 如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 如果需要通过SSH连接到实例，需要添加新的安全组规则。
+3 在EMR控制台 (https://console.aws.amazon.com/elasticmapreduce/home) 上，可以看到群集经历不同的设置阶段。 群集处于“Waiting”阶段后，单击群集详细信息以获取“Master public DNS”。 使用上一个命令中提供的密钥对SSH进入此实例。 如果未通过CLI指定安全组，则默认EMR安全组将不允许入站SSH。 如果需要通过SSH连接到实例，需要添加新的安全组规则。
 
-4）测试Alluxio是否按预期运行
+4 测试Alluxio是否按预期运行
 
 *$* alluxio runTests
 
@@ -66,20 +66,20 @@ Path='s3://pubshow/emr/alluxio-emr.sh',Args=['s3://pubshow/emr/'] \
 ## *4.创建表*
 
 将EMR与Alluxio一起使用的最简单步骤是在Alluxio上创建一个表，并使用Presto / Hive进行查询。
-1）SSH进入主节点中的'hadoop'用户。
-2）在Alluxio中创建一个目录作为表的外部位置。
+1 SSH进入主节点中的'hadoop'用户。
+2 在Alluxio中创建一个目录作为表的外部位置。
 
 *$* /opt/alluxio/bin/alluxio fs mkdir /testTable
 
-3）启动Hive CLI
+3 启动Hive CLI
 
 *$* hive
 
-4）创建一个新数据库以查看AWS Glue是否按预期工作。 检查控制台以查看是否已创建数据库。
+4 创建一个新数据库以查看AWS Glue是否按预期工作。 检查控制台以查看是否已创建数据库。
 
 *CREATE* *DATABASE* glue;
 
-5） 使用新创建的数据库并定义表。
+5 使用新创建的数据库并定义表。
 
 USE glue;
 *create* *external* *table* test1 (
@@ -92,12 +92,12 @@ zipcode STRING)
 FIELDS TERMINATED *BY* '|'
 *LOCATION* 'alluxio:///testTable';
 
-6）将值插入表中
+6 将值插入表中
 
 USE glue;
 *INSERT* *INTO* test1 *VALUES* (1, 24, 'F', 'Developer', '12345');
 
-7) 读取test1表的数据
+7 读取test1表的数据
 
 *SELECT* * *FROM* test1;
 
@@ -105,11 +105,11 @@ USE glue;
 
 Alluxio bootstrap还可以为您设置EMR并运行Spark作业。主要步骤如下所示：
 
-1）启动pyspark
+1 启动pyspark
 
 *$* pyspark
 
-2) 在S3的alluxio根目录（该目录为emr create-cluster中--bootstrap-actions Args中指定的路径）上传文档。文档来源: https://pubshow.s3.us-east-2.amazonaws.com/emr/EMR.txt
+2 在S3的alluxio根目录（该目录为emr create-cluster中--bootstrap-actions Args中指定的路径）上传文档。文档来源: https://pubshow.s3.us-east-2.amazonaws.com/emr/EMR.txt
 
 在pyspark下输入如下指令。该指令用于计算文档中出现EMR的行数。
 
@@ -118,7 +118,7 @@ spark = SparkSession.builder.getOrCreate()
 textFile = spark.read.text("alluxio:///EMR.txt")
 textFile.filter(textFile.value.contains("EMR")).count()*
 
-3） 查看返回结果 。
+3 查看返回结果 。
 
 *2*
 
@@ -126,8 +126,8 @@ textFile.filter(textFile.value.contains("EMR")).count()*
 
 Alluxio属性的调整可以在几个不同的位置完成。 根据哪些服务需求调整，EMR提供了修改服务设置和环境变量的不同方法。
 
-1）Alluxio服务
+1 Alluxio服务
 必须在alluxio-emr.sh引导脚本中进行任何服务器端配置更改。 在生成alluxio-site.properties的部分中，添加一行包含所需配置的内容，附加到文件底部。 选项也可以作为第三个参数传递给带有';'分隔符的引导脚本。
 
-2）Alluxio客户端
+2 Alluxio客户端
 如上所述，也可以通过引导脚本编辑通用客户端属性。 这主要是针对本地客户端（CLI）。 像Presto / Hive这样的特定服务的属性更改，应该在相应的配置文件中完成，即core-site.xml，hive.catalog。
