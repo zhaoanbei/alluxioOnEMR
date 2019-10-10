@@ -16,7 +16,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 通过AWS EMR入门指南 (https://docs.aws.amazon.com/zh_cn/emr/latest/ManagementGuide/emr-gs.html) 可以找到大部分先决条件。 
 
-<!-- 注意：需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。 -->
+<font color=gray size=5>注意：需要一个S3存储桶作为Alluxio的Root Under File System，并作为引导脚本的位置。 需要的时候，可以将Root UFS重新配置为HDFS。</font>
 
 ## *3.基本设置*
 
