@@ -20,7 +20,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 *$* aws emr create-default-roles
 
 2 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 
-以下命令所使用的S3 URI为：[alluxio-emr.sh](https://raw.githubusercontent.com/zhaoanbei/alluxioOnEMR/master/files/alluxio-emr.sh)；[alluxio-emr.json](https://github.com/zhaoanbei/alluxioOnEMR/blob/master/files/alluxio-emr.json) 
+以下命令所使用的文件下载路径为：[alluxio-emr.sh](https://raw.githubusercontent.com/zhaoanbei/alluxioOnEMR/master/files/alluxio-emr.sh)；[alluxio-emr.json](https://github.com/zhaoanbei/alluxioOnEMR/blob/master/files/alluxio-emr.json) 
 引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。
 在AWS CLI下运行如下指令：
 
