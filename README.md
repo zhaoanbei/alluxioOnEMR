@@ -19,7 +19,7 @@ Apache Hadoop和Spark给大数据计算带来了重大革新，而AWS EMR为按�
 
 1) 为帐户设置所需的IAM角色，以便能够使用EMR服务
 
-$ aws emr create-default-roles
+' *$* aws emr create-default-roles '
 
 2) 请确保Alluxio引导程序脚本与EMR配置脚本在可读的S3存储桶中。 以下命令所使用的S3 URI为：s3://pubshow/emr/alluxio-emr.sh；https://pubshow.s3.us-east-2.amazonaws.com/emr/alluxio-emr.json  。
 引导脚本需要root UFS URI作为参数。 其他选项可以在引导脚本顶部的注释中看到。 
@@ -103,6 +103,7 @@ USE glue;
 
 ## *5.运行Spark作业*
 Alluxio bootstrap还可以为您设置EMR并运行Spark作业。主要步骤如下所示：
+
 1）启动pyspark
 
 *$* pyspark
@@ -118,7 +119,7 @@ textFile.filter(textFile.value.contains("EMR")).count()
 
 3） 查看返回结果 。
 
-*$* 2
+2
 
 ##*6.自定义设置*
 Alluxio属性的调整可以在几个不同的位置完成。 根据哪些服务需求调整，EMR提供了修改服务设置和环境变量的不同方法。
