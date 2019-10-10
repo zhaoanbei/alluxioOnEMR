@@ -116,7 +116,9 @@ Alluxio bootstrap还可以为您设置EMR并运行Spark作业。主要步骤如�
 
 `$ pyspark`
 
-2 在S3的alluxio根目录（该目录为emr create-cluster中--bootstrap-actions Args中指定的路径）上传文档。文档来源: [EMR.txt](https://raw.githubusercontent.com/zhaoanbei/alluxioOnEMR/master/files/EMR.txt)
+2 在S3的alluxio根目录（该目录为emr create-cluster中--bootstrap-actions Args中指定的路径）上传文档。
+
+文档来源: [EMR.txt](https://raw.githubusercontent.com/zhaoanbei/alluxioOnEMR/master/files/EMR.txt)
 
 在pyspark下输入如下指令。该指令用于计算文档中出现EMR的行数。
 
