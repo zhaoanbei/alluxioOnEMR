@@ -133,7 +133,7 @@ Alluxio bootstrap还可以为您设置EMR并运行Spark作业。主要步骤如�
 Alluxio属性的调整可以在几个不同的位置完成。 根据哪些服务需求调整，EMR提供了修改服务设置和环境变量的不同方法。
 
 1 Alluxio服务
-必须在alluxio-emr.sh引导脚本中进行任何服务器端配置更改。 在生成alluxio-site.properties的部分中，添加一行包含所需配置的内容，附加到文件底部。 选项也可以作为第三个参数传递给带有';'分隔符的引导脚本。
+必须在alluxio-emr.sh引导脚本中进行任何服务器端配置更改。 在生成alluxio-site.properties的部分中，添加一行包含所需配置的内容，附加到文件底部。 选项也可以作为第三个参数传递给带有`';'`分隔符的引导脚本。
 
 2 Alluxio客户端
 如上所述，也可以通过引导脚本编辑通用客户端属性。 这主要是针对本地客户端（CLI）。 像Presto / Hive这样的特定服务的属性更改，应该在相应的配置文件中完成，即core-site.xml，hive.catalog。
